@@ -1,0 +1,26 @@
+{
+  "name": "hgkoa",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "start": "node bootstrap/www",
+    "dev": "./node_modules/.bin/nodemon bootstrap/www",
+    "prd": "pm2 start bootstrap/boot.json",//线上环境启动
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "debug": "^2.6.3",
+    "koa": "^2.2.0",
+    "koa-bodyparser": "^3.2.0",
+    "koa-json": "^2.0.2",
+    "koa-logger": "^2.0.1",
+    "koa-onerror": "^1.2.1",
+    "koa-router": "^7.1.1",
+    "koa-static": "^3.0.0",
+    "koa-views": "^5.2.1",
+    "nunjucks": "^3.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.8.1"
+  }
+}

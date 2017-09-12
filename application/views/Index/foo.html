@@ -1,0 +1,12 @@
+{% extends 'layout.html' %}
+{% block header %}
+    <style type="text/css">
+        body{
+            -webkit-overflow-scrolling:touch;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <div>foo test,{{ user }}</div>
+    {{ constants.JS_SRC }}
+{% endblock %}

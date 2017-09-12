@@ -1,0 +1,45 @@
+{
+    "apps": [
+    {
+        "name": "hgkoa",
+        "script": "./bootstrap/www",
+        "log_date_format": "YYYY-MM-DD HH:mm Z",
+        // "error_file": "/data/pm2/logs/hgkoa.log",
+        // "out_file": "/data/pm2/logs/hgkoa.stdout.log",
+        // "pid_file": "/data/pm2/pids/hgkoa.pid",
+        "instances": 2, //实例个数
+        "min_uptime": "200s",
+        "max_restarts": 10,
+        "max_memory_restart": "2M",
+        "cron_restart": "1 0 * * *",
+        "watch": [ // 监控变化的目录，一旦变化，自动重启
+            "bin",
+            "apps"
+        ],
+        "ignore_watch": [ // 从监控目录中排除
+            "node_modules",
+            "public"
+        ],
+        "merge_logs": true,
+        "exec_interpreter": "node",
+        //cluster（集群），默认是fork
+        "exec_mode": "cluster",
+        "autorestart": true,
+        "vizion": false,
+        "env":
+        {
+            "NODE_ENV": "production",
+            "NODE_PORT": "1337"
+        },
+        "env_dev":
+        {
+            "NODE_ENV": "staging",
+            "NODE_PORT": "1338"
+        },
+        "env_test":
+        {
+            "NODE_ENV": "testing",
+            "NODE_PORT": "1339"
+        }
+    }]
+}
