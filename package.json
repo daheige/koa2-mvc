@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node bootstrap/www",
     "dev": "./node_modules/.bin/nodemon bootstrap/www",
-    "prd": "pm2 start bootstrap/boot.json",//线上环境启动
+    "prd": "pm2 start bootstrap/boot.json",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
