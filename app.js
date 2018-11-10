@@ -5,6 +5,7 @@ const nunjucks = require('nunjucks'); //采用nunjucks模板
 const json = require('koa-json');
 const bodyparser = require('koa-bodyparser');
 const logger = require('koa-logger');
+const helmet = require('koa-helmet');
 const koaStatic = require('koa-static');
 
 //设置app运行环境和端口，网站根目录
@@ -106,9 +107,11 @@ app.use(async (ctx, next) => {
 });
 
 //系统全局middlewares
+app.use(helmet()); //防止xss攻击
+//body解析中间件
 app.use(bodyparser({
     enableTypes: ['json', 'form', 'text']
-}))
+}));
 app.use(json());
 app.use(logger());
 
