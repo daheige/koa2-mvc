@@ -11,6 +11,16 @@ function setRouter(router) {
         })
     });
 
+    router.get("/info", helper.controller("Index", "info"));
+
+    //抛出异常处理
+    router.get("/test-error", function(ctx, next) {
+        // ctx.throw(401, "unlogin");
+        ctx.throw(401, {
+            message: "unlogin"
+        });
+    });
+
     router.get('/bar', function(ctx, next) {
         ctx.body = 'this is a bar response'
     });

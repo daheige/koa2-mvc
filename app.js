@@ -88,17 +88,19 @@ app.use(async (ctx, next) => {
         await next();
     } catch (err) {
         // will only respond with JSON
+        // 为所有错误添加了一个errcode
         ctx.status = err.statusCode || err.status || 500;
-        console.log(ctx.status)
-        if (['dev', 'testing'].includes(APP_ENV)) {
+        console.log("code: ", ctx.status);
+        if (['dev', 'testing', 'staging'].includes(APP_ENV)) {
             ctx.body = {
                 message: err.message
             };
             return
         }
 
+        console.log("error message: ", err.message);
         ctx.body = {
-            message: "server error!"
+            message: err.message || "server error!"
         };
     }
 });
