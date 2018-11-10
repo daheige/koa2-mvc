@@ -1,9 +1,8 @@
 {
-    "apps": [
-    {
+    "apps": [{
         "name": "hgkoa",
         "script": "./bootstrap/www",
-        "log_date_format": "YYYY-MM-DD HH:mm Z",
+        "log_date_format": "YYYY-MM-DD HH:mm:ss",
         // "error_file": "/data/pm2/logs/hgkoa.log",
         // "out_file": "/data/pm2/logs/hgkoa.stdout.log",
         // "pid_file": "/data/pm2/pids/hgkoa.pid",
@@ -26,18 +25,15 @@
         "exec_mode": "cluster",
         "autorestart": true,
         "vizion": false,
-        "env":
-        {
+        "env": {
             "NODE_ENV": "production",
             "NODE_PORT": "1337"
         },
-        "env_dev":
-        {
+        "env_dev": {
             "NODE_ENV": "staging",
             "NODE_PORT": "1338"
         },
-        "env_test":
-        {
+        "env_test": {
             "NODE_ENV": "testing",
             "NODE_PORT": "1339"
         }

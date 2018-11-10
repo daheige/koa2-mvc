@@ -1,9 +1,9 @@
 //加载通用逻辑容器
 function loadLogicFunc(layer, name, group) {
     layer = layer.substring(0, 1).toUpperCase() + layer.substring(1);
-    let path = '../' + layer + '/';
+    let path = APP_PATH + '/' + layer + '/';
     if (typeof group != 'undefined' && group) {
-        path = '../' + layer + '/' + group + '/';
+        path = APP_PATH + '/' + layer + '/' + group + '/';
     }
 
     if (typeof name == 'undefined') {
@@ -20,7 +20,7 @@ function loadLayer(layer = 'Controller', name = 'Index', action = 'index') {
         name = arr && arr.length == 2 ? arr[0] + '/' + arr[1] : name;
     }
 
-    let dir = '../' + layer + '/';
+    let dir = APP_PATH + '/' + layer + '/';
     let filename = require(dir + name + layer);
     return filename[action];
 };
@@ -101,17 +101,18 @@ module.exports = {
                 }
             }
 
-
             if (url.indexOf('?') > -1) {
                 url += params;
-            }else{
-                url += '?'+params;
+            } else {
+                url += '?' + params;
             }
 
             // console.log(url);
-            let http = require('http');
+            let http = url.indexOf("https") > -1 ? require("https") : require('http');
             http.get(url, function(res) {
-                let { statusCode } = res;
+                let {
+                    statusCode
+                } = res;
                 let contentType = res.headers['content-type'];
                 let error;
                 if (statusCode != 200) {
@@ -130,13 +131,14 @@ module.exports = {
                     });
                 }
                 res.setEncoding('utf8');
-                let rawData = '';
+                let rawData = [];
                 res.on('data', (chunk) => {
-                    rawData += chunk;
+                    rawData.push(chunk);
                 });
 
                 res.on('end', () => {
                     try {
+                        rawData = rawData.join('');
                         let parsedData = JSON.parse(rawData || '[]');
                         return resolve({
                             code: 200,
@@ -197,18 +199,19 @@ module.exports = {
                 }
             };
 
-            let http = require('http');
+            let http = url.indexOf("https") > -1 ? require("https") : require('http');
             let req = http.request(options, (res) => {
                 // console.log(`状态码: ${res.statusCode}`);
                 // console.log(`响应头: ${JSON.stringify(res.headers)}`);
                 res.setEncoding('utf8');
-                let rawData = '';
+                let rawData = [];
                 res.on('data', (chunk) => {
-                    rawData += chunk;
+                    rawData.push(chunk);
                 });
 
                 res.on('end', () => {
                     try {
+                        rawData = rawData.join('');
                         return resolve({
                             code: 200,
                             message: 'ok',

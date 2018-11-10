@@ -12,7 +12,7 @@ let http = require('http');
  * Get port from environment and store in Express.
  */
 
-let port = normalizePort(ENV_INFO.NODE_PORT || '3000');
+let port = normalizePort(ENV_INFO.NODE_PORT || '1337');
 
 /**
  * Create HTTP server.
@@ -23,7 +23,7 @@ let server = http.createServer(app.callback());
 /**
  * Listen on provided port, on all network interfaces.
  */
-
+console.log("app has run on: ",port)
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
