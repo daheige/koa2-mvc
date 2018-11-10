@@ -6,8 +6,8 @@
  * 使用之前请安装redis2.8.0
  * npm install -g redis
  * 用法
- * var redisHandler = require('./redisHandler');
- * var redisObj = redisHandler(redis_config);
+ * var redisHandler = require('./redisHandler')
+ * var redisObj = redisHandler.getInstance(redis_config);
  * redisObj.setVal('username','heige');
  * //redisObj.getVal('username');
  * var redisProxy = redisObj.getProxy();
@@ -113,7 +113,10 @@ class redisHandler { //采用单例模式进行redis连接
         expire = parseInt(expire) > 0 ? parseInt(expire) : 600;
         let r_exp = expire + 100;
         let c_exp = Math.floor((new Date()).getTime() / 1000) + expire;
-        let arg = JSON.stringify({ data: value, expire: c_exp });
+        let arg = JSON.stringify({
+            data: value,
+            expire: c_exp
+        });
         this.client.set(key, arg);
         this.client.del(key + '.lock');
     }
@@ -166,4 +169,5 @@ class redisHandler { //采用单例模式进行redis连接
         return this.client;
     }
 }
-module.exports = redisHandler.getInstance;
+
+module.exports = redisHandler;
