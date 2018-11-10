@@ -95,15 +95,16 @@ class redisHandler { //采用单例模式进行redis连接
         this.client.on('error', function(err) {
             console.log("Error " + err);
         });
+
         redisHandler.instance = this;
     }
 
     static getInstance(redis_config) {
-        if (typeof redisHandler.instance != 'undefined') {
-            return redisHandler.instance;
+        if (!redisHandler.instance) {
+            redisHandler.instance = new redisHandler(redis_config);
         }
 
-        return new redisHandler(redis_config);
+        return redisHandler.instance;
     }
 
     /**
